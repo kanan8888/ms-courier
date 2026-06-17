@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002
+      author: kanan8888
+      changes:
+        - createTable:
+            tableName: courier_delivery_history
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: courier_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_delivery_history_courier
+                    references: couriers(id)
+              - column:
+                  name: order_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: delivery_fee
+                  type: DECIMAL(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: courier_earning
+                  type: DECIMAL(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: distance_km
+                  type: DECIMAL(6,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: delivered_at
+                  type: TIMESTAMPTZ
+                  defaultValueComputed: NOW()
+                  constraints:
+                    nullable: false
